@@ -4,7 +4,10 @@ const SkinsModel = require('../models/SkinsModel');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-
+    SkinsModel.find({}, (err, result) => {
+        if (err) res.status(500).json({ getSkinsError: "There was an error getting the skins, the database may not be functioning correctly" });
+        else res.status(200).json({ skins: result });
+    })
 });
 
 router.post('/add_skin', (req, res) => {
