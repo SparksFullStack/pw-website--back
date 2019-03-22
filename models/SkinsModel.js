@@ -23,4 +23,4 @@ const SkinModel = mongoose.Schema({
     }]
 })
 
-modules.exports = mongoose.model(SkinModel);
+module.exports = mongoose.model('skins', SkinModel);

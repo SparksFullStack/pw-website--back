@@ -1,13 +1,15 @@
-// * Imports
+// * Library Imports
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
+// * Router Imports
+const skinsRouter = require('./routes/skinsRoute');
+
 // * Server Configuration
 const port = process.env.PORT || 3001;
 const server = express();
-server.use(express.json());
 
 // * DB Configurations
 mongoose.promise = global.Promise;
@@ -22,6 +24,7 @@ mongoose.connection
 
 // * Routes
 server.get('/', (req, res) => res.send('The server is live!'));
+server.use('/skins', skinsRouter);
 
 server.use(express.json());
 server.use(cors());
