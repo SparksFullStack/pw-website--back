@@ -5,7 +5,8 @@ const cors = require('cors');
 require('dotenv').config();
 
 // * Router Imports
-const skinsRouter = require('./routes/skinsRoute');
+const skinsRouter = require('./routes/skinsRoutes');
+const adminRouter = require('./routes/adminRoutes');
 
 // * Server Configuration
 const port = process.env.PORT || 3001;
@@ -22,12 +23,13 @@ mongoose.connection
     .once('open', () => console.log('The database is connected'))
     .on('error', (err) => console.warn(err));
 
+server.use(express.json());
+server.use(cors());
+
 // * Routes
 server.get('/', (req, res) => res.send('The server is live!'));
 server.use('/skins', skinsRouter);
-
-server.use(express.json());
-server.use(cors());
+server.use('/admin', adminRouter);
 
 // * Server Activation
 server.listen(port, () => console.log(`The server is listening on port ${port}`));
