@@ -21,6 +21,7 @@ router.post('/login', (req, res) => {
     const { username, password } = req.body;
     AdminModel.findOne({ username })
         .then(adminRecord => {
+            console.log(adminRecord);
             if (!adminRecord) return res.status(404).json({ loginError: "Those credentials don't seem right, please check them and try again." });
 
             if (bcrypt.compareSync(password, adminRecord.password)) {
@@ -30,7 +31,6 @@ router.post('/login', (req, res) => {
                 });
             } else res.status(401).json({ loginError: "The password provided didn't match the user record, please try again" });
         })
-
 })
 
 module.exports = router;
